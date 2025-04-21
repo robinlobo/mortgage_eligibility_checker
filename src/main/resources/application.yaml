@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: mortgage_eligibility_checker
+  profiles:
+    active: dev
+springdoc:
+  api-docs:
+    path: /api-docs
+logging:
+  level:
+    root: INFO
+# Custom app props
+mortgage:
+  max-loan-amount: 100000000
+  max-monthly-interest-rate: 1.0
+  max-maturity-months: 1200
