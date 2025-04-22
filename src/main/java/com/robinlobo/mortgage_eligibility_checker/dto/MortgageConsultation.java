@@ -1,4 +1,4 @@
-package com.robinlobo.mortgage_eligibility_checker.model;
+package com.robinlobo.mortgage_eligibility_checker.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

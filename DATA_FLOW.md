@@ -1,3 +1,26 @@
+## Design Breakdown
+
+### `MortgageCalculatorService`
+
+- Validates input data.
+- Calculates monthly mortgage using amortization logic.
+- Delegates rule checks to `MortgageRulesService`.
+
+### `MortgageRulesService`
+
+- Contains and isolates all business rule logic.
+
+### `MortgageRateService`
+
+- Handles fetching and storing mortgage rate data.
+
+### `DTOs`
+
+- `MortgageConsultation`: Input payload for mortgage checks.
+- `MortgageCalculationResult`: Result returned to client, including feasibility and financials.
+
+---
+
 ```mermaid
 flowchart TD
 A[Client Request] -->|POST /api/mortgage-check| B[MortgageRateService]
@@ -27,3 +50,5 @@ E --> F[Call MortgageCalculatorService]
     style F fill:#bbf,stroke:#333,stroke-width:1px
     style J fill:#bfb,stroke:#333,stroke-width:1px
 ```
+
+

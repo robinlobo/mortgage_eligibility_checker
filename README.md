@@ -11,8 +11,10 @@ This solution implements a Java-based RESTful backend service for mortgage evalu
 - Java 17+
 - Spring Boot
 - Spring Data JPA (in-memory H2 database for mortgage rates)
+- Spring Cache
 - JUnit 5 (with parameterized tests)
 - Gradle
+- Docker
 
 ---
 
@@ -49,36 +51,56 @@ These are evaluated after mortgage calculations and used to determine feasibilit
 
 ---
 
-## Design Breakdown
+## Basic Architecture Diagram
 
-### `MortgageCalculatorService`
+```mermaid
+flowchart TD
+subgraph Controller Layer
+A[MortgageController]
+end
 
-- Validates input data.
-- Calculates monthly mortgage using amortization logic.
-- Delegates rule checks to `MortgageRulesService`.
+    subgraph Service Layer
+        B[MortgageCalculatorService]
+        C[MortgageRateService]
+        D[MortgageValidationService]
+    end
 
-### `MortgageRulesService`
+    subgraph Caching
+        E[[Spring Cache]]
+    end
 
-- Contains and isolates all business rule logic.
+    subgraph Repository Layer
+        F[MortgageRateRepository]
+    end
 
-### `MortgageRateService`
+    subgraph Data
+        G[(Database)]
+    end
 
-- Handles fetching and storing mortgage rate data.
+    A --> B
+    A --> C
+    B --> D
+    C --> F
+    F --> E
+    F --> G
+    C --> B
+    C --> E
 
-### `DTOs`
+    classDef cache fill:#e3f2fd,stroke:#42a5f5;
+    class E cache;
 
-- `MortgageConsultation`: Input payload for mortgage checks.
-- `MortgageCalculationResult`: Result returned to client, including feasibility and financials.
+    classDef controller fill:#e8f5e9,stroke:#66bb6a;
+    class A controller;
 
----
+    classDef service fill:#fff3e0,stroke:#ffa726;
+    class B,C,D service;
 
-## Testing
+    classDef repo fill:#f3e5f5,stroke:#ab47bc;
+    class F repo;
 
-- Parameterized unit tests for:
-    - `MortgageRulesService`: business rule logic.
-    - `MortgageValidationService`: input validation.
-    - `MortgageCalculatorService`: core calculations and rule delegation.
-- Coverage includes boundary and negative scenarios.
+    classDef data fill:#efebe9,stroke:#8d6e63;
+    class G data;
+```
 
 ---
 
@@ -101,8 +123,10 @@ These are evaluated after mortgage calculations and used to determine feasibilit
 ## How to Run
 
 1. Clone the repository.
-2. Run `./gradlew bootRun`.
-3. Access:
+2. Build app jar using `./gradlew build`.
+3. Build docker image using `docker build --tag 'mortgage_checker_app' .`
+4. Run container using `docker run --name mortgage_checker_app -p 8080:8080 mortgage_checker_app:latest`
+5. Access:
     - Swagger UI (if enabled): `http://localhost:8080/swagger-ui.html`
     - GET: `http://localhost:8080/api/interest-rates`
     - POST: `http://localhost:8080/api/mortgage-check`

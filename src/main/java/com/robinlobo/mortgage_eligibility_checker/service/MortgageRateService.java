@@ -1,6 +1,6 @@
 package com.robinlobo.mortgage_eligibility_checker.service;
 
-import com.robinlobo.mortgage_eligibility_checker.model.MortgageConsultation;
+import com.robinlobo.mortgage_eligibility_checker.dto.MortgageConsultation;
 import com.robinlobo.mortgage_eligibility_checker.model.MortgageRate;
 import com.robinlobo.mortgage_eligibility_checker.dto.MortgageCalculationResult;
 import com.robinlobo.mortgage_eligibility_checker.repo.MortgageRateRepo;

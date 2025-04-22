@@ -3,12 +3,32 @@ spring:
     name: mortgage_eligibility_checker
   profiles:
     active: dev
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
 springdoc:
   api-docs:
     path: /api-docs
 logging:
   level:
     root: INFO
+# Container config
+server:
+  shutdown: graceful
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      livenessState:
+        enabled: true
+      readinessState:
+        enabled: true
 # Custom app props
 mortgage:
   max-loan-amount: 100000000

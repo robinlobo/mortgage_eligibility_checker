@@ -1,7 +1,7 @@
 package com.robinlobo.mortgage_eligibility_checker.service;
 
 import com.robinlobo.mortgage_eligibility_checker.config.MortgageConfigProperties;
-import com.robinlobo.mortgage_eligibility_checker.model.MortgageConsultation;
+import com.robinlobo.mortgage_eligibility_checker.dto.MortgageConsultation;
 import org.springframework.stereotype.Service;
 
 @Service

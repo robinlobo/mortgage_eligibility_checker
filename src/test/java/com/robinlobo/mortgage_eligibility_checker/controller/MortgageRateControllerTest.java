@@ -1,7 +1,7 @@
 package com.robinlobo.mortgage_eligibility_checker.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.robinlobo.mortgage_eligibility_checker.model.MortgageConsultation;
+import com.robinlobo.mortgage_eligibility_checker.dto.MortgageConsultation;
 import com.robinlobo.mortgage_eligibility_checker.model.MortgageRate;
 import com.robinlobo.mortgage_eligibility_checker.repo.MortgageRateRepo;
 import com.robinlobo.mortgage_eligibility_checker.service.MortgageRateService;

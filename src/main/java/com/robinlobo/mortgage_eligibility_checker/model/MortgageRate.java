@@ -10,6 +10,7 @@ import java.time.Instant;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class MortgageRate {
 
     @Id
