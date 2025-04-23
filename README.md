@@ -1,20 +1,35 @@
-# Solution Documentation
+# Mortgage Eligibility Checker App
 
-## Overview
-
-This solution implements a Java-based RESTful backend service for mortgage evaluation. It fulfills all the business and functional requirements outlined in the assessment.
-
+mortgage-checker-app is a Spring Boot application for mortgage evaluation.
 ---
 
 ## Technologies Used
 
-- Java 17+
+- Java 21
 - Spring Boot
 - Spring Data JPA (in-memory H2 database for mortgage rates)
 - Spring Cache
 - JUnit 5 (with parameterized tests)
 - Gradle
-- Docker
+- Docker / Kubernetes
+- Swagger API documentation
+- Monitoring and Observability using Spring Boot Actuator and Micrometer
+- Prometheus
+- Grafana
+
+---
+
+## How to Run
+
+1. Clone the repository.
+2. Build app jar using `./gradlew build`.
+3. Build docker image using `docker build --tag 'mortgage_checker_app' .`
+4. Deploy on k8s using `kubectl apply -f k8s`
+5. Access:
+    - Swagger UI: `http://localhost:8080/swagger-ui.html`
+    - Grafana Chart integrated with Prometheus: `http://localhost:3000/d/X034JGT7Gz/springboot-apm-dashboard?orgId=1`
+    - GET: `http://localhost:8080/api/interest-rates`
+    - POST: `http://localhost:8080/api/mortgage-check`
 
 ---
 
@@ -119,20 +134,3 @@ end
 - Improve error handling and localization support.
 
 ---
-
-## How to Run
-
-1. Clone the repository.
-2. Build app jar using `./gradlew build`.
-3. Build docker image using `docker build --tag 'mortgage_checker_app' .`
-4. Run container using `docker run --name mortgage_checker_app -p 8080:8080 mortgage_checker_app:latest`
-5. Access:
-    - Swagger UI (if enabled): `http://localhost:8080/swagger-ui.html`
-    - GET: `http://localhost:8080/api/interest-rates`
-    - POST: `http://localhost:8080/api/mortgage-check`
-
----
-
-## Author Notes
-
-The architecture aims to be production-ready with a clean separation of concerns, testability, and adherence to SOLID principles. All logic is covered with parameterized unit tests to ensure correctness and robustness.

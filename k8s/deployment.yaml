@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mortgage-checker-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mortgage-checker-app
+  template:
+    metadata:
+      labels:
+        app: mortgage-checker-app
+    spec:
+      containers:
+        - name: mortgage-checker-app
+          image: mortgage-checker-app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APP_MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: app.message
+            - name: SPRING_PROFILES_ACTIVE
+              value: 'prod'
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5

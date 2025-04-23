@@ -15,4 +15,4 @@ spring:
     console:
       enabled: true
 app:
-  message: Hello from Dev!
+  message: Hello from Prod!

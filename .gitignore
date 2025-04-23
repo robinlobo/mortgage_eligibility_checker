@@ -35,3 +35,4 @@ out/
 ### VS Code ###
 .vscode/
 /SCALING.md
+/src/main/java/com/robinlobo/mortgage_eligibility_checker/controller/MessageController.java
